@@ -5,11 +5,11 @@ import ie.gmit.sw.models.LanguageEntry;
 import java.io.*;
 
 public class Parser implements Runnable {
-    private static String file;
-    private static int kmerSize;
+    private File file;
+    private int kmerSize;
     private static LanguageDatabase db;
 
-    public Parser(String file, int k) {
+    public Parser(File file, int k) {
         this.file = file;
         this.kmerSize = k;
     }

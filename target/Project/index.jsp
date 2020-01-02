@@ -1,5 +1,5 @@
 <%@ include file="includes/header.jsp" %>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <div class="animated bounceInDown" style="font-size:48pt; font-family:arial; color:#990000; font-weight:bold">Language Detection System</div>
 
 </p>&nbsp;</p>&nbsp;</p>
@@ -34,4 +34,5 @@
 	</tr>
 </table>
 <%@ include file="includes/footer.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 

@@ -29,17 +29,12 @@ import javax.servlet.http.*;
 */
 
 public class ServiceHandler extends HttpServlet {
-	public static final String FILE = "data/wili-2018-Edited.txt";
-	private static final int KMERSIZE = 2;
+	private  final int KMERSIZE = 2;
 	private LinkedList<Request> inQueueList = new LinkedList<>();
 	private Map<String, String> outQueueList = new ConcurrentSkipListMap<>();
 	private String languageDataSet = null; //This variable is shared by all HTTP requests for the servlet
 	private static long jobNumber = 0; //The number of the task in the async queue
 	LanguageDatabase db = LanguageDatabase.getInstance();
-
-
-	String path = Thread.currentThread().getContextClassLoader().getResource(FILE).getPath();
-
 
 	private File f;
 
@@ -48,10 +43,10 @@ public class ServiceHandler extends HttpServlet {
 		languageDataSet = ctx.getInitParameter("LANGUAGE_DATA_SET"); //Reads the value from the <context-param> in web.xml
 
 		//You can start to build the subject database at this point. The init() method is only ever called once during the life cycle of a servlet
-
 		f = new File(languageDataSet);
-		Parser p = new Parser(FILE, KMERSIZE);
-
+		Parser p = new Parser(f, KMERSIZE);
+		final String dir = System.getProperty("user.dir");
+		System.out.println("dir"+ dir);
 		p.setDb(db);
 		Thread t = new Thread(p);
         t.start();
@@ -64,11 +59,14 @@ public class ServiceHandler extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html"); //Output the MIME type
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter(); //Write out text. We can write out binary too and change the MIME type...
 
 		//Initialise some request varuables with the submitted form info. These are local to this method and thread safe...
 		String option = req.getParameter("cmbOptions"); //Change options to whatever you think adds value to your assignment...
 		String s = req.getParameter("query");
+		System.out.println("s"+ s);
 		String taskNumber = req.getParameter("frmTaskNumber");
 
 
@@ -101,7 +99,7 @@ public class ServiceHandler extends HttpServlet {
 		}
 
 
-//		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
+		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
 		out.print("<div id=\"r\"></div>");
 
 		out.print("<font color=\"#993333\"><b>");
