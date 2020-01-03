@@ -65,7 +65,7 @@ public class ServiceHandler extends HttpServlet {
 
 		//Initialise some request varuables with the submitted form info. These are local to this method and thread safe...
 		String option = req.getParameter("cmbOptions"); //Change options to whatever you think adds value to your assignment...
-		String s = req.getParameter("query");
+		String s = req.getParameter("query").replaceAll("\\p{P}", "").toLowerCase();;
 		System.out.println("s"+ s);
 		String taskNumber = req.getParameter("frmTaskNumber");
 
