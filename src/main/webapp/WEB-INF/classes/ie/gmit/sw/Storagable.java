@@ -1,6 +1,5 @@
 package ie.gmit.sw;
 
-public interface Storage <T> {
+public interface Storagable<T> {
     void add(T type);
-
 }

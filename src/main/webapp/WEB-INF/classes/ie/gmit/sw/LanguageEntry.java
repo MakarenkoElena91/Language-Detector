@@ -1,7 +1,4 @@
-package ie.gmit.sw.models;
-
-import ie.gmit.sw.Kmer;
-import ie.gmit.sw.Language;
+package ie.gmit.sw;
 
 public class LanguageEntry {
     private String kmer;

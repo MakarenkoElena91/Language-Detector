@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class KmerDatabase implements Storage<Kmer>{
+public class KmerDatabase implements Storagable<Kmer> {
     private List<Kmer> kmerList;
     private Map<Kmer, Kmer> db;
 

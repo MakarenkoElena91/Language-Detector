@@ -1,13 +1,11 @@
 package ie.gmit.sw;
 
-import ie.gmit.sw.models.LanguageEntry;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LanguageDatabase implements  Storage<LanguageEntry>{
+public class LanguageDatabase implements Storagable<LanguageEntry> {
     private Map<Language, KmerDatabase> languageDb;
     private static LanguageDatabase instance = new LanguageDatabase();
 

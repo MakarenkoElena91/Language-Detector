@@ -1,7 +1,5 @@
 package ie.gmit.sw;
 
-import ie.gmit.sw.models.LanguageEntry;
-
 import java.io.*;
 
 public class Parser implements Runnable {
