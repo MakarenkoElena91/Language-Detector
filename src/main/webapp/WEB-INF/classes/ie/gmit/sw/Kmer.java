@@ -1,7 +1,7 @@
 package ie.gmit.sw;
 
 public class Kmer {
-    private int kmer;
+    private long kmer;
     private String kmerString;
     private int frequency;
 
@@ -18,19 +18,6 @@ public class Kmer {
 
     public void increaseFrequency() {
         frequency++;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Kmer)) return false;
-        Kmer kmer1 = (Kmer) o;
-        return kmer == kmer1.kmer;
-    }
-
-    @Override
-    public int hashCode() {
-        return kmer;
     }
 
     @Override
