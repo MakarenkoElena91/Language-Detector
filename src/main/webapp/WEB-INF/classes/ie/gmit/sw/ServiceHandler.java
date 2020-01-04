@@ -45,8 +45,8 @@ public class ServiceHandler extends HttpServlet {
 		//You can start to build the subject database at this point. The init() method is only ever called once during the life cycle of a servlet
 		f = new File(languageDataSet);
 		Parser p = new Parser(f, KMERSIZE);
-		final String dir = System.getProperty("user.dir");
-		System.out.println("dir"+ dir);
+//		final String dir = System.getProperty("user.dir");
+//		System.out.println("dir"+ dir);
 		p.setDb(db);
 		Thread t = new Thread(p);
         t.start();
@@ -65,6 +65,12 @@ public class ServiceHandler extends HttpServlet {
 
 		//Initialise some request varuables with the submitted form info. These are local to this method and thread safe...
 		String option = req.getParameter("cmbOptions"); //Change options to whatever you think adds value to your assignment...
+		int kmerSize = 0;
+		try {
+		 kmerSize = Integer.parseInt(option.substring(7));
+		} catch (NumberFormatException e) {
+			e.getMessage();
+		}
 		String s = req.getParameter("query").replaceAll("\\p{P}", "").toLowerCase();;
 		System.out.println("s"+ s);
 		String taskNumber = req.getParameter("frmTaskNumber");
@@ -83,11 +89,20 @@ public class ServiceHandler extends HttpServlet {
 			//pull from the queue
 			Request request = inQueueList.pollFirst();
 			if(request!=null){
-				KmerDatabase query = new KmerDatabase(s, 2);
+				KmerDatabase query = null;
+				try {
+					query = new KmerDatabase(s, 2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				String language = db.guessLanguage(query).toString();
 				outQueueList.put(taskNumber, language);
 			}
-			KmerDatabase query = new KmerDatabase(s, 2);
+			try {
+				KmerDatabase query = new KmerDatabase(s, kmerSize);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}else{
 			//Check out-queue for finished job
