@@ -6,6 +6,7 @@ Each class that implements this interface specifies the type:
 class LanguageDatabase implements Storagable<LanguageEntry>
   
 class KmerDatabase implements Storagable<Kmer> 
+
 Both classes add kmers but LanguageDatabase apart from kmers has a language as well.
   
 2. Singleton pattern for both databases is used.
