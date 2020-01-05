@@ -1,29 +1,17 @@
 package ie.gmit.sw;
-
-import java.util.Comparator;
-import java.util.Objects;
-
+/*
+Kmer class contains a kmer, kmerString, frequency
+A string kmer is converted to an int using the hashCode() method in order to decrease memory usage
+ */
 public class Kmer {
     private int kmer;
     private String kmerString;
     private int frequency;
 
-
     public Kmer(String kmerString) {
         this.kmerString = kmerString;
         this.kmer = kmerString.hashCode();
         this.frequency = 1;
-    }
-
-    public Kmer(int kmer, int frequency) {
-        this.kmer = kmer;
-        this.frequency = frequency;
-    }
-
-
-
-    public int getKmer() {
-        return kmer;
     }
 
     public int getFrequency() {

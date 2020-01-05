@@ -1,13 +1,11 @@
 package ie.gmit.sw;
 
-import ie.gmit.sw.models.LanguageEntry;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LanguageDatabase implements  Storage<LanguageEntry>{
+public class LanguageDatabase implements Storagable<LanguageEntry> {
     private Map<Language, KmerDatabase> languageDb;
     private static LanguageDatabase instance = new LanguageDatabase();
 
@@ -19,6 +17,11 @@ public class LanguageDatabase implements  Storage<LanguageEntry>{
         return instance;
     }
 
+    /**
+     * Predicts language based on the query text passed
+     * @param query - a kmer map containing all kmers and their frequencies
+     * @return Language language - a predicted language, the very first language in the treeset which has the lowest out of place metric distance
+     */
     public Language guessLanguage(KmerDatabase query){
 
         TreeSet<OutOfPlaceMetric> oopm = new TreeSet<>();
@@ -29,9 +32,13 @@ public class LanguageDatabase implements  Storage<LanguageEntry>{
          }
 
         return oopm.first().getLanguage();
-
     }
 
+    /**
+     * Adds a kmer to kmer database if language entry already exists in a language database
+     * otherwise adds a new language entry
+     * @param languageEntry
+     */
     @Override
     public void add(LanguageEntry languageEntry){
         Kmer kmer = new Kmer(languageEntry.getKmer());

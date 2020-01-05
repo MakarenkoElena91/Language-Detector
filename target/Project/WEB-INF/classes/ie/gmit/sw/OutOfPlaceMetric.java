@@ -14,6 +14,10 @@ public class OutOfPlaceMetric implements Comparable<OutOfPlaceMetric>{
         return lang;
     }
 
+    /**
+     *
+     * @return distance, a positive number
+     */
     public int getAbsoluteDistance() {
         return Math.abs(distance);
     }
