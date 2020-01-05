@@ -1,10 +1,12 @@
 package ie.gmit.sw;
-
+/*
+Kmer class contains a kmer, kmerString, frequency
+A string kmer is converted to an int using the hashCode() method in order to decrease memory usage
+ */
 public class Kmer {
     private int kmer;
     private String kmerString;
     private int frequency;
-
 
     public Kmer(String kmerString) {
         this.kmerString = kmerString;

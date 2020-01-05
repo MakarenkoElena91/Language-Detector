@@ -17,6 +17,11 @@ public class LanguageDatabase implements Storagable<LanguageEntry> {
         return instance;
     }
 
+    /**
+     * Predicts language based on the query text passed
+     * @param query - a kmer map containing all kmers and their frequencies
+     * @return Language language - a predicted language, the very first language in the treeset which has the lowest out of place metric distance
+     */
     public Language guessLanguage(KmerDatabase query){
 
         TreeSet<OutOfPlaceMetric> oopm = new TreeSet<>();
@@ -27,9 +32,13 @@ public class LanguageDatabase implements Storagable<LanguageEntry> {
          }
 
         return oopm.first().getLanguage();
-
     }
 
+    /**
+     * Adds a kmer to kmer database if language entry already exists in a language database
+     * otherwise adds a new language entry
+     * @param languageEntry
+     */
     @Override
     public void add(LanguageEntry languageEntry){
         Kmer kmer = new Kmer(languageEntry.getKmer());

@@ -2,7 +2,6 @@ package ie.gmit.sw;
 
 import java.io.*;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import javax.servlet.*;
@@ -16,12 +15,12 @@ import javax.servlet.http.*;
  * ---------																	---------
  * cd WEB-INF/classes/															cd WEB-INF\classes\
  * javac -cp .:$TOMCAT_HOME/lib/servlet-api.jar ie/gmit/sw/*.java				javac -cp .:%TOMCAT_HOME%/lib/servlet-api.jar ie/gmit/sw/*.java
- * cd ../../																	cd ..\..\
+ * 																	cd ..\..\
  * jar -cf ngrams.war *															jar -cf ngrams.war *
  *
  * Drag and drop the file ngrams.war into the webapps directory of Tomcat to deploy the application. It will then be
- * accessible from http://localhost:8080.
- *
+ * accessible from http://localhost:8080/warFileName.
+ *./startup.sh to start tomcat ./shutdown.sh to stop tomcat (from bin directory)
  * NOTE: the text file containing the 253 different languages needs to be placed in /data/wili-2018-Edited.txt. This means
  * that you must have a "data" directory in the root of your file system that contains a file called "wili-2018-Edited.txt".
  * Do NOT submit the wili-2018 text file with your assignment!
@@ -63,7 +62,7 @@ public class ServiceHandler extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter(); //Write out text. We can write out binary too and change the MIME type...
 
-		//Initialise some request varuables with the submitted form info. These are local to this method and thread safe...
+		//Initialise some request variables with the submitted form info. These are local to this method and thread safe...
 		String option = req.getParameter("cmbOptions"); //Change options to whatever you think adds value to your assignment...
 		int kmerSize = 0;
 		try {
@@ -91,7 +90,7 @@ public class ServiceHandler extends HttpServlet {
 			if(request!=null){
 				KmerDatabase query = null;
 				try {
-					query = new KmerDatabase(s, 2);
+					query = new KmerDatabase(s, kmerSize);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -110,9 +109,7 @@ public class ServiceHandler extends HttpServlet {
 				out.print("<H1>LANGUAGE IS: " + outQueueList.get(taskNumber) + "</H1>");
 				outQueueList.remove(taskNumber);
 			}
-
 		}
-
 
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
 		out.print("<div id=\"r\"></div>");
@@ -148,6 +145,7 @@ public class ServiceHandler extends HttpServlet {
 		out.print("</html>");
 
 		out.print("<script>");
+
 		out.print("var wait=setTimeout(\"document.frmRequestDetails.submit();\", 10000);");
 		out.print("</script>");
 	}
